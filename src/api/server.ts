@@ -205,6 +205,22 @@ export const server_calls = {
         }
         return await response.json()
     },
+    get_games_by_owner: async () => { 
+        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/owner/all`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${token}`
+            }
+
+        });
+
+        if (!response.ok){
+            throw new Error('Failed to fetch data from the server')
+        }
+       
     get_all_games: async () => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/all`,
         {
