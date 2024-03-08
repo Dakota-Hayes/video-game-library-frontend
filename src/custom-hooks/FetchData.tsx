@@ -5,7 +5,7 @@ export const useGetData = () => {
     const [carData, setData] = useState<[]>([])
     
     async function handleDataFetch(){
-        const result = await server_calls.get();
+        const result = await server_calls.get_all_games();
         setData(result)
     }
 

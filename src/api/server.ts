@@ -1,4 +1,4 @@
-const token = '4f255c55aa6b02ee2b5a63f4ffc9613486cff6135fae6bbe'
+const admin_token = '4f255c55aa6b02ee2b5a63f4ffc9613486cff6135fae6bbe'
 
 export const server_calls = {
     get_user_by_id: async (id: string) => { 
@@ -8,7 +8,7 @@ export const server_calls = {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'x-access-token': `Bearer ${token}`
+                'x-access-token': `Bearer ${admin_token}`
             }
 
         });
@@ -25,7 +25,7 @@ export const server_calls = {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'x-access-token': `Bearer ${token}`
+                'x-access-token': `Bearer ${admin_token}`
             }
 
         });
@@ -41,7 +41,7 @@ export const server_calls = {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'x-access-token': `Bearer ${token}`
+                'x-access-token': `Bearer ${admin_token}`
             },
             body: JSON.stringify(data)
         })
@@ -58,7 +58,7 @@ export const server_calls = {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'x-access-token': `Bearer ${token}`
+                'x-access-token': `Bearer ${admin_token}`
             },
             body: JSON.stringify(data)
 
@@ -76,7 +76,7 @@ export const server_calls = {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'x-access-token': `Bearer ${token}`
+                'x-access-token': `Bearer ${admin_token}`
             },
         })
 
@@ -86,7 +86,7 @@ export const server_calls = {
 
         return;
     },
-    get_game_by_id: async (id: string) => { 
+    get_game_by_id: async (id: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/id/${id}`,
         {
             method: 'GET',
@@ -103,7 +103,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_game_by_title: async (title: string) => { 
+    get_games_by_title: async (title: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/title/${title}`,
         {
             method: 'GET',
@@ -120,7 +120,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_game_by_version: async (version: string) => { 
+    get_games_by_version: async (version: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/version/${version}`,
         {
             method: 'GET',
@@ -137,7 +137,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_game_by_region: async (region: string) => { 
+    get_games_by_region: async (region: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/region/${region}`,
         {
             method: 'GET',
@@ -154,7 +154,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_game_by_publisher: async (publisher: string) => { 
+    get_games_by_publisher: async (publisher: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/publisher/${publisher}`,
         {
             method: 'GET',
@@ -171,7 +171,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_game_by_completed: async (completed: string) => { 
+    get_games_by_completed: async (completed: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/completed/${completed}`,
         {
             method: 'GET',
@@ -188,7 +188,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_game_by_value: async (value: string) => { 
+    get_games_by_value: async (value: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/value/${value}`,
         {
             method: 'GET',
@@ -205,8 +205,8 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_games_by_owner: async () => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/owner/all`,
+    get_games_by_owner: async (owner: string, token: string) => { 
+        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/owner/${owner}`,
         {
             method: 'GET',
             headers: {
@@ -220,7 +220,7 @@ export const server_calls = {
         if (!response.ok){
             throw new Error('Failed to fetch data from the server')
         }
-       
+    },  
     get_all_games: async () => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/all`,
         {
@@ -228,7 +228,7 @@ export const server_calls = {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'x-access-token': `Bearer ${token}`
+                'x-access-token': `Bearer ${admin_token}`
             }
 
         });
@@ -238,7 +238,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    create_game: async (data: any = {}) => {
+    create_game: async (data: any = {}, token: string) => {
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/create`,{
             method: 'POST',
             headers: {
@@ -254,7 +254,7 @@ export const server_calls = {
         }
         return await response.json()
     },
-    update_game_by_id: async (id: string, data:any = {}) => {
+    update_game_by_id: async (id: string, data:any = {}, token: string) => {
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/update/id/${id}`,
         {
             method: 'PUT',
@@ -273,7 +273,7 @@ export const server_calls = {
 
         return await response.json()
     },
-    delete_game_by_id: async (id:string[]) => {
+    delete_game_by_id: async (id:string[], token: string) => {
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/delete/id/${id}`,{
             method: 'DELETE',
             headers: {

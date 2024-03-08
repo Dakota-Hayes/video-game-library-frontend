@@ -2,7 +2,7 @@ import { DataGrid, GridColDef} from "@mui/x-data-grid"
 import { useState } from "react"
 import { server_calls } from '../api/server';
 import Modal from "./Modal"
-import CarForm from "./GameForm"
+import GameForm from "./GameForm"
 import { useGetData } from '../custom-hooks/FetchData';
 
 const columns: GridColDef[] = [
@@ -12,23 +12,38 @@ const columns: GridColDef[] = [
         width: 90,
     },
     {
-        field: 'make',
-        headerName: 'Make',
+        field: 'title',
+        headerName: 'title',
         flex: 1
     },
     {
-        field: 'model',
-        headerName: 'Model',
+        field: 'version',
+        headerName: 'version',
         flex: 1
     },
     {
-        field: 'year',
-        headerName: 'Year',
+        field: 'publisher',
+        headerName: 'publisher',
         flex: 1
     },
     {
-        field: 'color',
-        headerName: 'Color',
+        field: 'region',
+        headerName: 'region',
+        flex: 1
+    },
+    {
+        field: 'completed',
+        headerName: 'completed',
+        flex: 1
+    },
+    {
+        field: 'status',
+        headerName: 'status',
+        flex: 1
+    },
+    {
+        field: 'value',
+        headerName: 'region',
         flex: 1
     },
 ]
@@ -37,11 +52,10 @@ function DataTable() {
     const [isModalOpen,setModalOpen] = useState(false)
     const toggleModalOpen = () => {setModalOpen(!isModalOpen)}
     const [selectionModel,setSelectionModel] = useState<string[]>([])
-    const {carData, getData} = useGetData();
+    const {gameData, getData} = useGetData();
     
     const deleteData = () => {
-        console.log(selectionModel)
-        server_calls.delete(selectionModel);
+        server_calls.delete_game_by_id(selectionModel);
         getData();
         console.log(`Selection model: ${selectionModel}`)
         setTimeout(() => {window.location.reload()}, 500)
@@ -65,14 +79,14 @@ function DataTable() {
                             </>
                         )}                        
                         <div>
-                            <h2 className='p-3 bg-slate-300 my-2 rounded'>Car Inventory</h2>
+                            <h2 className='p-3 bg-slate-300 my-2 rounded'>Video Game Library Database</h2>
                             <DataGrid 
-                                rows={carData} 
+                                rows={gameData} 
                                 columns={columns} 
                                 pageSizeOptions={[5]} 
                                 checkboxSelection 
                                 disableRowSelectionOnClick
-                                onRowSelectionModelChange={(item : any) => {setSelectionModel(item), console.log(item)}} 
+                                onRowSelectionModelChange={(item : any) => {setSelectionModel(item)}} 
                                 columnVisibilityModel={{id : false}}
                             />
                         </div>
@@ -83,7 +97,7 @@ function DataTable() {
                     <Modal 
                         open={isModalOpen} 
                         toggleForm={toggleModalOpen} 
-                        form={<CarForm id={selectionModel} />}
+                        form={<GameForm id={selectionModel} />}
                     />
                 )}
             </div>

@@ -1,31 +1,34 @@
-import { TextField } from "@mui/material"
+import { TextField, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio} from "@mui/material"
 import { useForm } from 'react-hook-form'
 import { server_calls } from "../api/server"
 import { useDispatch, useStore } from "react-redux"
-import { chooseMake,chooseModel,chooseYear,chooseColor } from "../redux/slices/RootSlice"
-import { useNavigate } from "react-router-dom"
+import { chooseTitle,chooseVersion,choosePublisher, chooseRegion, chooseCompleted, chooseStatus, chooseValue } from "../redux/slices/RootSlice"
 
 interface Props {
-    id?: string[]
+    id?: string[],
+    token: string,
+    toggleForm: () => void;
 }
 
-function CarForm (props:Props){
-    const navigate = useNavigate();
+function GameForm (props:Props){
     const {register, handleSubmit} = useForm({})
     const dispatch = useDispatch();
     const store = useStore();
-    const onSubmit = (data: any) => {
+    const token = props.token
+    const onSubmit = async (data: any) => {
       if (props.id && props.id.length > 0) {
-        server_calls.update(props.id[0], data)
-        console.log(`Updated: ${ data.first } ${ props.id }`)
-        navigate("./Dashboard")
+        await server_calls.update_game_by_id(props.id[0], data, token)
+        await props.toggleForm()
       } else {
-        dispatch(chooseMake(data.make));
-        dispatch(chooseModel(data.model));
-        dispatch(chooseYear(data.year));
-        dispatch(chooseColor(data.color));
-        server_calls.create(store.getState())
-        navigate("./Dashboard")
+        await dispatch(chooseTitle(data.title));
+        await dispatch(chooseVersion(data.version));
+        await dispatch(choosePublisher(data.publisher));
+        await dispatch(chooseRegion(data.region));
+        await dispatch(chooseCompleted(data.completed));
+        await dispatch(chooseStatus(data.status));
+        await dispatch(chooseValue(data.Value));
+        await server_calls.create_game(store.getState(),token)
+        await props.toggleForm()
       }
     }
 
@@ -34,27 +37,34 @@ function CarForm (props:Props){
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <h1>
-                    Car Form
+                    Video Game Form
                 </h1>
             </div>
             <div>
-                <TextField placeholder="Make..." {...register('make')}></TextField>
+                <TextField placeholder="Title..." {...register('author_name')}></TextField>
             </div>
             <div>
-                <TextField placeholder="Model..." {...register('model')}></TextField>
+                <TextField placeholder="Version...(Ex: Greatest Hits)" {...register('book_title')}></TextField>
             </div>
             <div>
-                <TextField placeholder="Year..." {...register('year')}></TextField>
+                <TextField placeholder="Page Count..." {...register('page_count')}></TextField>
             </div>
             <div>
-                <TextField placeholder="Color..." {...register('color')}></TextField>
+                <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                        <RadioGroup>
+                            <FormControlLabel value="Hard Cover" control={<Radio />} label="Hard Cover" {...register('book_type')}/>
+                            <FormControlLabel value="Soft Cover" control={<Radio />} label="Soft Cover" {...register('book_type')}/>
+                            <FormControlLabel value="Digital" control={<Radio />} label="Digital" {...register('book_type')}/>
+                        </RadioGroup>
+                </FormControl>
             </div>
             <div>
-                <button className="p-3 bg-slate-300 m-3 rounded hover:bg-slate-800 hover:text-white">Submit</button>
+                <button className="p-3 bg-gray-300 m-3 rounded hover:bg-gray-800 hover:text-white">Submit</button>
             </div>
         </form>
     </>
   )
 }
 
-export default CarForm
+export default GameForm
