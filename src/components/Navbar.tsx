@@ -1,22 +1,36 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { signInWithPopup, signOut } from "firebase/auth"
-import { auth, Providers } from '../config/firebase'
+import SignIn from "../auth/SignIn";
+import { useAuthContext } from "../auth/AuthContext";
+import SignOut from "../auth/SignOut";
+import SignUp from "../auth/SignUp";
+
+
 function Navbar() {
     const [isVisible, setIsVisible] = useState(false)
+    const auth = useAuthContext();
 
-    const signInOnClick = async () => {
-        const response = await signInWithPopup(auth, Providers.google);
-        if (response) {
-            if(auth.currentUser){
-                location.reload();
-            }
+    const signUpOnClick = async() => {
+        if (!auth.isAuthorized) {
+            await SignUp
+            await location.reload();
+        }
+    }
+
+    const signInOnClick = async() => {
+        if (!auth.isAuthorized) {
+            await SignIn()
+            await location.reload();
         }
     }
 
     const signOutOnClick = async () => {
-        await signOut(auth);
-        location.reload();
+        if (auth.isAuthorized) {
+            await SignOut
+            await location.reload();
+        }
+        await auth;
+        await location.reload();
     }
 
     const dropDown = () => {
@@ -46,12 +60,17 @@ function Navbar() {
                         </Link>
                     </div>
 
-                    {!auth.currentUser ?
+                    {!auth.isAuthorized ?
                         <>
                             <div className="flex p-3 justify-center">
                                 <Link to='/' onClick={signInOnClick} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
                                     <button>Sign In</button>
                                 </Link>
+                            </div>
+                            <div className="flex p-3 justify-center">
+                            <Link to='/' onClick={signUpOnClick} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
+                                <button>Sign Up</button>
+                            </Link>
                             </div>
                         </>
                     :

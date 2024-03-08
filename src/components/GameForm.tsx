@@ -2,7 +2,7 @@ import { TextField, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio,
 import { useForm } from 'react-hook-form'
 import { server_calls } from "../api/server"
 import { useDispatch, useStore } from "react-redux"
-import { chooseTitle,chooseVersion, chooseConsole, choosePublisher, chooseRegion, chooseCompleted, chooseStatus, chooseValue } from "../redux/slices/RootSlice"
+import { chooseTitle,chooseVersion, chooseConsole, choosePublisher, chooseRegion, chooseCompleted, chooseCondition, chooseValue } from "../redux/slices/RootSlice"
 
 interface Props {
     id?: string[],
@@ -26,7 +26,7 @@ function GameForm (props:Props){
         await dispatch(choosePublisher(data.publisher));
         await dispatch(chooseRegion(data.region));
         await dispatch(chooseCompleted(data.completed));
-        await dispatch(chooseStatus(data.status));
+        await dispatch(chooseCondition(data.condition));
         await dispatch(chooseValue(data.Value));
         await server_calls.create_game(store.getState(),token)
         await props.toggleForm()
@@ -123,12 +123,12 @@ function GameForm (props:Props){
             <div>
                 <FormControl>
                     <FormLabel>Status of Condition</FormLabel>
-                    <FormGroup {...register('Status')}>
-                        <Checkbox name="Box"/>
-                        <Checkbox name="Manual"/>
-                        <Checkbox name="Artwork"/>
-                        <Checkbox name="All Other Extras"/>
-                        <Checkbox name="Damaged"/>
+                    <FormGroup {...register('Condition')}>
+                        <Checkbox name="Box" value={"Box"}/>
+                        <Checkbox name="Manual" value={"Manual"}/>
+                        <Checkbox name="Artwork" value={"Artwork"}/>
+                        <Checkbox name="Extras" value={"Extras"}/>
+                        <Checkbox name="Damaged" value={"Damaged"}/>
                     </FormGroup>
                 </FormControl>
             </div>
