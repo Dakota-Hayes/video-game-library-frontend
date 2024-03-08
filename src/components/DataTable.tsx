@@ -22,6 +22,11 @@ const columns: GridColDef[] = [
         flex: 1
     },
     {
+        field: 'console',
+        headerName: 'console',
+        flex: 1
+    },
+    {
         field: 'publisher',
         headerName: 'publisher',
         flex: 1
@@ -48,14 +53,18 @@ const columns: GridColDef[] = [
     },
 ]
 
-function DataTable() {
+interface Props{
+    token : string
+}
+
+function DataTable(props:Props) {
     const [isModalOpen,setModalOpen] = useState(false)
     const toggleModalOpen = () => {setModalOpen(!isModalOpen)}
     const [selectionModel,setSelectionModel] = useState<string[]>([])
     const {gameData, getData} = useGetData();
-    
+    const token = props.token
     const deleteData = () => {
-        server_calls.delete_game_by_id(selectionModel);
+        server_calls.delete_game_by_id(selectionModel,token);
         getData();
         console.log(`Selection model: ${selectionModel}`)
         setTimeout(() => {window.location.reload()}, 500)

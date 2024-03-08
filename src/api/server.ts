@@ -1,6 +1,24 @@
-const admin_token = '4f255c55aa6b02ee2b5a63f4ffc9613486cff6135fae6bbe'
+const admin_token = ''
 
 export const server_calls = {
+    get_user_authorization: async (data: any = {}) => { 
+        const response = await fetch(`http://localhost:5173/?name=Dakota#//users/authorization`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${admin_token}`
+            },
+            body: JSON.stringify(data)
+
+        });
+
+        if (!response.ok){
+            throw new Error('Failed to fetch data from the server')
+        }
+        return await response.json()
+    },
     get_user_by_id: async (id: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//users/search/id/${id}`,
         {
@@ -122,6 +140,23 @@ export const server_calls = {
     },
     get_games_by_version: async (version: string, token: string) => { 
         const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/version/${version}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${token}`
+            }
+
+        });
+
+        if (!response.ok){
+            throw new Error('Failed to fetch data from the server')
+        }
+        return await response.json()
+    },
+    get_games_by_console: async (console: string, token: string) => { 
+        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/version/${console}`,
         {
             method: 'GET',
             headers: {

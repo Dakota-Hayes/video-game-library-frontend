@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { signInWithPopup, signOut } from "firebase/auth"
-import {auth, Providers} from '../config/firebase'
-
+import { auth, Providers } from '../config/firebase'
 function Navbar() {
-    //signin
+    const [isVisible, setIsVisible] = useState(false)
+
     const signInOnClick = async () => {
         const response = await signInWithPopup(auth, Providers.google);
         if (response) {
@@ -14,30 +14,23 @@ function Navbar() {
         }
     }
 
-    //signout
     const signOutOnClick = async () => {
         await signOut(auth);
         location.reload();
     }
 
-    //variable and function that controlls navbar visibility
-    const [isVisible, setIsVisible] = useState(false)
-    
-    //clicking the hamburger dropdown expands or contracts the navbar
     const dropDown = () => {
         setIsVisible(!isVisible)
     }
     
-    //clicking anywhere with this function attached closes the navbar
     const clicked = () => {
         setIsVisible(false)
     }
-    
-    //body
+
     return (
         <nav className="flex items-center justify-between flex-wrap bg-gray-500 p-6 ">
             <div className="flex items-center justify-center flex-shrink-0 text-gray-200 mr-6 p-5 hover:text-white">
-                <Link to='/' className="font-semibold text-xl tracking-tight">MOTORS-R-US</Link>
+                <Link to='/' className="font-semibold text-xl tracking-tight">VGL</Link>
             </div>
             <div className="block">
                 <button onClick={dropDown} className=" flex items-center px-3 py-2 text-gray-200 border rounded border-gray-200 hover:text-white hover:border-white">
