@@ -1,6 +1,6 @@
 import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
-
+import AccountView from '../pages/AccountView';
 interface RouteType {
     path : string,
     component : () => JSX.Element,
@@ -20,6 +20,12 @@ const routes : RouteType[] = [
         component : Dashboard,
         name : "Dashboard",
         protected:true
+    },
+    {
+        path : "/accountview",
+        component : AccountView,
+        name : "Account View",
+        protected:false
     }
 ];
 

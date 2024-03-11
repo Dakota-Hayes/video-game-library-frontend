@@ -1,4 +1,4 @@
-import { TextField, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio, Select, MenuItem, FormGroup, Checkbox} from "@mui/material"
+import { InputLabel, TextField, RadioGroup, FormControl, FormLabel, FormControlLabel, Radio, Select, MenuItem, FormGroup, Checkbox} from "@mui/material"
 import { useForm } from 'react-hook-form'
 import { server_calls } from "../api/server"
 import { useDispatch, useStore } from "react-redux"
@@ -18,19 +18,18 @@ function GameForm (props:Props){
     const onSubmit = async (data: any) => {
       if (props.id && props.id.length > 0) {
         await server_calls.update_game_by_id(props.id[0], data, token)
-        await props.toggleForm()
       } else {
         await dispatch(chooseTitle(data.title));
         await dispatch(chooseVersion(data.version));
-        await dispatch(chooseConsole(data.version));
+        await dispatch(chooseConsole(data.console));
         await dispatch(choosePublisher(data.publisher));
         await dispatch(chooseRegion(data.region));
         await dispatch(chooseCompleted(data.completed));
         await dispatch(chooseCondition(data.condition));
-        await dispatch(chooseValue(data.Value));
+        await dispatch(chooseValue(data.value));
         await server_calls.create_game(store.getState(),token)
-        await props.toggleForm()
       }
+      await props.toggleForm()
     }
 
   return (
@@ -42,98 +41,102 @@ function GameForm (props:Props){
                 </h1>
             </div>
             <div>
-                <TextField placeholder="Title..." {...register('title')}></TextField>
+                <TextField placeholder="Title..." {...register('title')} fullWidth></TextField>
             </div>
             <div>
-                <TextField placeholder="Version..." {...register('version')}></TextField>
+                <TextField placeholder="Version..." {...register('version') }fullWidth></TextField>
             </div>
             <div>
-                <FormControl>
-                    <Select {...register('console')} label="Console" placeholder="Console" autoWidth>
-                        <MenuItem value={"Magnavox Odyssey"}> Magnavox Odyssey </MenuItem>
+                <FormControl fullWidth>
+                    <InputLabel>Console</InputLabel>
+                    <Select label="Console" {...register('console')}>
+                        <MenuItem value={"Analogue Analogue Pocket"}> Analogue Analogue Pocket </MenuItem>
                         <MenuItem value={"Atari 2600"}> Atari 2600 </MenuItem>
                         <MenuItem value={"Atari 5200"}> Atari 5200 </MenuItem>
-                        <MenuItem value={"ColecoVision"}> ColecoVision </MenuItem>
-                        <MenuItem value={"Atari 7800"}> Atari 7800 </MenuItem>
-                        <MenuItem value={"NES"}> NES </MenuItem>
-                        <MenuItem value={"Sega Master System"}> Sega Master System </MenuItem>
-                        <MenuItem value={"TurboGrafx-16"}> TurboGrafx-16 </MenuItem>
-                        <MenuItem value={"Sega Genesis"}> Sega Genesis </MenuItem>
-                        <MenuItem value={"SNES"}> SNES </MenuItem>
-                        <MenuItem value={"NEO GEO"}> NEO GEO </MenuItem>
-                        <MenuItem value={"Atari Jaguar"}> Atari Jaguar </MenuItem>
-                        <MenuItem value={"Panasonic 3DO"}> Panasonic 3DO </MenuItem>
-                        <MenuItem value={"Sega Saturn"}> Sega Saturn </MenuItem>
-                        <MenuItem value={"PlayStation"}> PlayStation </MenuItem>
-                        <MenuItem value={"Nintendo 64"}> Nintendo 64 </MenuItem>
-                        <MenuItem value={"Dreamcast"}> Dreamcast </MenuItem>
-                        <MenuItem value={"PlayStation 2"}> PlayStation 2 </MenuItem>
-                        <MenuItem value={"GameCube"}> GameCube </MenuItem>
-                        <MenuItem value={"Xbox"}> Xbox </MenuItem>
-                        <MenuItem value={"Xbox 360"}> Xbox 360 </MenuItem>
-                        <MenuItem value={"PlayStation 3"}> PlayStation 3 </MenuItem>
-                        <MenuItem value={"Wii"}> Wii </MenuItem>
-                        <MenuItem value={"Wii U"}> Wii U </MenuItem>
-                        <MenuItem value={"PlayStation 4"}> PlayStation 4 </MenuItem>
-                        <MenuItem value={"Xbox One"}> Xbox One </MenuItem>
-                        <MenuItem value={"Nintendo Switch"}> Nintendo Switch </MenuItem>
-                        <MenuItem value={"PlayStation 5"}> PlayStation 5 </MenuItem>
-                        <MenuItem value={"Xbox Series X"}> Xbox Series X </MenuItem>
-                        <MenuItem value={"Xbox Series S"}> Xbox Series S </MenuItem>
-                        <MenuItem value={"Game Boy"}> Game Boy </MenuItem>
-                        <MenuItem value={"Game Gear"}> Game Gear </MenuItem>
-                        <MenuItem value={"Game Boy Color"}> Game Boy Color </MenuItem>
-                        <MenuItem value={"Game Boy Advance"}> Game Boy Advance </MenuItem>
-                        <MenuItem value={"Nintendo DS"}> Nintendo DS </MenuItem>
-                        <MenuItem value={"PlayStation Portable"}> PSP </MenuItem>
-                        <MenuItem value={"Nintendo 3DS"}> Nintendo 3DS </MenuItem>
-                        <MenuItem value={"PlayStation Vita"}> PSVITA </MenuItem>
-                        <MenuItem value={"Ouya"}> Ouya </MenuItem>
-                        <MenuItem value={"Nvidia Shield"}> Nvidia Shield </MenuItem>
-                        <MenuItem value={"Neo Geo Pocket"}> Neo Geo Pocket </MenuItem>
-                        <MenuItem value={"Neo Geo Pocket Color"}> Neo Geo Pocket Color </MenuItem>
-                        <MenuItem value={"WonderSwan Color"}> WonderSwan Color </MenuItem>
-                        <MenuItem value={"N-Gage"}> N-Gage </MenuItem>
+                        <MenuItem value={"Atari 7800"}> Atari  7800 </MenuItem>
+                        <MenuItem value={"Atari Jaguar"}> Atari  Jaguar </MenuItem>
                         <MenuItem value={"Atari Lynx"}> Atari Lynx </MenuItem>
-                        <MenuItem value={"Sega Nomad"}> Sega Nomad </MenuItem>
-                        <MenuItem value={"Virtual Boy"}> Virtual Boy </MenuItem>
-                        <MenuItem value={"Sega Pico"}> Sega Pico </MenuItem>
+                        <MenuItem value={"Bandai WonderSwan Color"}> Bandai WonderSwan Color </MenuItem>
+                        <MenuItem value={"Coleco ColecoVision"}> Coleco ColecoVision </MenuItem>
                         <MenuItem value={"Intellivision Amico"}> Intellivision Amico </MenuItem>
-                        <MenuItem value={"Playdate"}> Playdate </MenuItem>
-                        <MenuItem value={"Analogue Pocket"}> Analogue Pocket </MenuItem>
-                        <MenuItem value={"Evercade"}> Evercade </MenuItem>
+                        <MenuItem value={"Magnavox Magnavox Odyssey"}> Magnavox Magnavox Odyssey </MenuItem>
+                        <MenuItem value={"Microsoft Xbox"}> Microsoft Xbox </MenuItem>
+                        <MenuItem value={"Microsoft Xbox 360"}> Microsoft Xbox 360 </MenuItem>
+                        <MenuItem value={"Microsoft Xbox One"}> Microsoft Xbox One </MenuItem>
+                        <MenuItem value={"Microsoft Xbox Series S"}> Microsoft Xbox Series S </MenuItem>
+                        <MenuItem value={"Microsoft Xbox Series X"}> Microsoft Xbox Series X </MenuItem>
+                        <MenuItem value={"NEC TurboGrafx-16"}> NEC TurboGrafx-16 </MenuItem>
+                        <MenuItem value={"Nintendo 3DS"}> Nintendo 3DS </MenuItem>
+                        <MenuItem value={"Nintendo 64"}> Nintendo 64 </MenuItem>
+                        <MenuItem value={"Nintendo DS"}> Nintendo DS </MenuItem>
+                        <MenuItem value={"Nintendo Game Boy"}> Nintendo Game Boy </MenuItem>
+                        <MenuItem value={"Nintendo Game Boy Advance"}> Nintendo Game Boy Advance </MenuItem>
+                        <MenuItem value={"Nintendo Game Boy Color"}> Nintendo Game Boy Color </MenuItem>
+                        <MenuItem value={"Nintendo GameCube"}> Nintendo GameCube </MenuItem>
+                        <MenuItem value={"Nintendo NES"}> Nintendo NES </MenuItem>
+                        <MenuItem value={"Nintendo Switch"}> Nintendo Switch </MenuItem>
+                        <MenuItem value={"Nintendo SNES"}> Nintendo SNES </MenuItem>
+                        <MenuItem value={"Nintendo Virtual Boy"}> Nintendo Virtual Boy </MenuItem>
+                        <MenuItem value={"Nintendo Wii"}> Nintendo Wii </MenuItem>
+                        <MenuItem value={"Nintendo Wii U"}> Nintendo Wii U </MenuItem>
+                        <MenuItem value={"Nokia N-Gage"}> Nokia N-Gage </MenuItem>
+                        <MenuItem value={"Nvidia Nvidia Shield"}> Nvidia Nvidia Shield </MenuItem>
+                        <MenuItem value={"Ouya Ouya"}> Ouya Ouya </MenuItem>
+                        <MenuItem value={"Panasonic Panasonic 3DO"}> Panasonic Panasonic 3DO </MenuItem>
+                        <MenuItem value={"Playdate Playdate"}> Playdate Playdate </MenuItem>
+                        <MenuItem value={"Sega Dreamcast"}> Sega Dreamcast </MenuItem>
+                        <MenuItem value={"Sega Game Gear"}> Sega Game Gear </MenuItem>
+                        <MenuItem value={"Sega Genesis"}> Sega Genesis </MenuItem>
+                        <MenuItem value={"Sega Master System"}> Sega Master System </MenuItem>
+                        <MenuItem value={"Sega Nomad"}> Sega Nomad </MenuItem>
+                        <MenuItem value={"Sega Pico"}> Sega Pico </MenuItem>
+                        <MenuItem value={"Sega Saturn"}> Sega Saturn </MenuItem>
+                        <MenuItem value={"SNK NEO GEO"}> SNK NEO GEO </MenuItem>
+                        <MenuItem value={"SNK Neo Geo Pocket"}> SNK Neo Geo Pocket </MenuItem>
+                        <MenuItem value={"SNK Neo Geo Pocket Color"}> SNK Neo Geo Pocket Color </MenuItem>
+                        <MenuItem value={"Sony PlayStation"}> Sony PlayStation </MenuItem>
+                        <MenuItem value={"Sony PlayStation 2"}> Sony PlayStation 2 </MenuItem>
+                        <MenuItem value={"Sony PlayStation 3"}> Sony PlayStation 3 </MenuItem>
+                        <MenuItem value={"Sony PlayStation 4"}> Sony PlayStation 4 </MenuItem>
+                        <MenuItem value={"Sony PlayStation 5"}> Sony PlayStation 5 </MenuItem>
+                        <MenuItem value={"Sony PSP"}> Sony PSP </MenuItem>
+                        <MenuItem value={"Sony PSVITA"}> Sony PSVITA </MenuItem>
                     </Select>
                 </FormControl>
             </div>
             <div>
-                <TextField placeholder="Publisher..." {...register('publisher')}></TextField>
+                <TextField placeholder="Publisher..." {...register('publisher')} fullWidth></TextField>
             </div>
             <div>
-                <TextField placeholder="Region..." {...register('region')}></TextField>
-            </div>
-            <div>    
-                <FormControl>
-                    <FormLabel>Status of Completion</FormLabel>
-                    <RadioGroup {...register('Completed')}>
-                        <FormControlLabel value={true} control={<Radio/>} label="Completed"/>
-                        <FormControlLabel value={false} control={<Radio/>} label="In Progress"/>
-                    </RadioGroup>
-                </FormControl>
+                <TextField placeholder="Region..." {...register('region')} fullWidth></TextField>
             </div>
             <div>
-                <FormControl>
+                <TextField placeholder="Value..." {...register('value')} fullWidth></TextField>
+            </div>
+            <div>
+                <FormControl fullWidth>
                     <FormLabel>Status of Condition</FormLabel>
-                    <FormGroup {...register('Condition')}>
-                        <Checkbox name="Box" value={"Box"}/>
-                        <Checkbox name="Manual" value={"Manual"}/>
-                        <Checkbox name="Artwork" value={"Artwork"}/>
-                        <Checkbox name="Extras" value={"Extras"}/>
-                        <Checkbox name="Damaged" value={"Damaged"}/>
+                    <FormGroup className="flex items-start">
+                        <div>
+                            <FormLabel><Checkbox  value={"Box"} {...register('condition')}/>Box</FormLabel>
+                            <FormLabel><Checkbox value={"Manual"} {...register('condition')}/>Manual</FormLabel>
+                            <FormLabel><Checkbox value={"Artwork"} {...register('condition')}/>Artwork</FormLabel>
+                            <FormLabel><Checkbox value={"Extras"} {...register('condition')}/>Extras</FormLabel>
+                            <FormLabel><Checkbox value={"Damaged"} {...register('condition')}/>Damaged</FormLabel>
+                        </div>
                     </FormGroup>
                 </FormControl>
             </div>
-            <div>
-                <TextField placeholder="Value..." {...register('value')}></TextField>
+            <div>    
+                <FormControl fullWidth>
+                    <FormLabel>Status of Completion</FormLabel>
+                    <RadioGroup>
+                        <div>
+                            <FormControlLabel value={"True"} control={<Radio/>} label="Completed" {...register('completed')}/>
+                            <FormControlLabel value={"False"} control={<Radio/>} label="In Progress" {...register('completed')}/>
+                        </div>
+                    </RadioGroup>
+                </FormControl>
             </div>
             <div>
                 <button className="p-3 bg-gray-300 m-3 rounded hover:bg-gray-800 hover:text-white">Submit</button>

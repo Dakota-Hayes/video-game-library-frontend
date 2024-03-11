@@ -16,23 +16,29 @@ export const useAuthContext = () => useContext(AuthContext)!;
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [isAuthorized, setAuthorized] = useState<boolean>(false);
 
-    const signUp =  async (email: string, password: string) => {
+    const signUp = async (email: string, password: string) => {
         const result = await serverAuth.signUp(email, password);
-        const newUser = await new User();
-        await newUser.SetUser({data: result});
-        await setUser(newUser);
+        const newUser = new User({ data: Object(result) });
+        setUser(newUser);
+        if (newUser.GetToken().length > 0) {
+            setAuthorized(true);
+        }
     };
 
-    const signIn =  async (email: string, password: string) => {
+    const signIn = async (email: string, password: string) => {
         const result = await serverAuth.signIn(email, password);
-        const newUser = await new User();
-        await newUser.SetUser({data: result});
-        await setUser(newUser);
+        const newUser = new User({ data: Object(result) });
+        setUser(newUser);
+        if (newUser.GetToken().length > 0) {
+            setAuthorized(true);
+        }
     };
 
     const signOut = async () => {
-        await setUser(null);
+        setUser(null);
+        setAuthorized(false);
     };
 
     const value = {
@@ -40,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signIn,
         signOut,
         signUp,
-        isAuthorized: !!user,
+        isAuthorized,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

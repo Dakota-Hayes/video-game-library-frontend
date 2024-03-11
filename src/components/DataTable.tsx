@@ -13,42 +13,42 @@ const columns: GridColDef[] = [
     },
     {
         field: 'title',
-        headerName: 'title',
+        headerName: 'Tile',
         flex: 1
     },
     {
         field: 'version',
-        headerName: 'version',
+        headerName: 'Version',
         flex: 1
     },
     {
         field: 'console',
-        headerName: 'console',
+        headerName: 'Console',
         flex: 1
     },
     {
         field: 'publisher',
-        headerName: 'publisher',
+        headerName: 'Publisher',
         flex: 1
     },
     {
         field: 'region',
-        headerName: 'region',
+        headerName: 'Region',
         flex: 1
     },
     {
         field: 'completed',
-        headerName: 'completed',
+        headerName: 'Completed',
         flex: 1
     },
     {
         field: 'condition',
-        headerName: 'condition',
+        headerName: 'Condition',
         flex: 1
     },
     {
         field: 'value',
-        headerName: 'region',
+        headerName: 'Value',
         flex: 1
     },
 ]
@@ -101,7 +101,7 @@ function DataTable(props:Props) {
                             <DataGrid 
                                 rows={gameData} 
                                 columns={columns} 
-                                pageSizeOptions={[6]} 
+                                pageSizeOptions={[9]} 
                                 checkboxSelection 
                                 disableRowSelectionOnClick
                                 onRowSelectionModelChange={(item : any) => {

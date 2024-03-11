@@ -2,10 +2,10 @@ import DataTable from "../components/DataTable"
 import { useAuthContext } from "../auth/AuthContext";
 
 function Dashboard() {
-  const auth = useAuthContext();
+  const authcontext = useAuthContext();
   return (
     <div>
-        {auth.user ? (<DataTable token={auth.user.GetToken()}/>):(<></>)}
+        {authcontext.user ? (<DataTable token={authcontext.user.GetToken()}/>):(<></>)}
     </div>
   )
 }

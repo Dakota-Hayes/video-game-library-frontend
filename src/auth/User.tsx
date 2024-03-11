@@ -1,40 +1,38 @@
 interface Props {
-    data: string []
+    data: {
+        admin:boolean,
+        data_created:string,
+        email:string,
+        g_auth_verify:boolean,
+        id:string,
+        password:string,
+        token:string
+    }
 }
 
 export class User{
-    private static data:string[];
-    private static id:string;
-    private static email:string;
-    private static admin:boolean;
-    private static token:string;
+    id:string;
+    email:string;
+    admin:boolean;
+    token:string;
 
-    User(){
-        User.data = [];
-        User.id = '';
-        User.email = '';
-        User.admin = false;
-        User.token = '';
-        return User;
+    constructor(props: Props) {
+        this.id = props.data.id || '';     
+        this.email = props.data.email || '';
+        this.admin = props.data.admin || false;
+        this.token = props.data.token || '';
     }
-    SetUser(props:Props){
-        User.data = props.data;
-        User.id = User.data[0];
-        User.email = User.data[1];
-        User.admin = Boolean(User.data[4]);
-        User.token = User.data[5];
-        return User;
-    }
+
     GetId(){
-        return User.id;
+        return this.id;
     }
     GetEmail(){
-        return User.email;
+        return this.email;
     }
     GetAdmin(){
-        return User.admin;
+        return this.admin;
     }
     GetToken(){
-        return User.token;
+        return this.token;
     }
 }

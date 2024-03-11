@@ -11,6 +11,7 @@ function LoginForm (props:Props){
     const onSubmit = async (data: any) => {
 
         props.handleSignIn(data.email,data.password)
+        props.toggleForm()
     }
 
   return (

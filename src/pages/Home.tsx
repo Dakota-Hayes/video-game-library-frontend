@@ -1,7 +1,13 @@
-function Home() {
-  return (
-    <div>Home</div>
-  )
-}
+import Background from '../assets/images/Home-BG.jpg'
 
-export default Home
+function Home() {
+    return (
+      <div style={{backgroundImage : `url(${Background})`}} className=' flex flex-row justify-center mx-auto bg-cover bg-fixed'>
+        <div className='flex place-items-center h-screen'>
+          <h3 className='p-5 text-white rounded'>VIDEO GAME LIBRARY</h3>
+        </div>
+      </div>
+    )
+  }
+  
+  export default Home

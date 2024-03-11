@@ -1,10 +1,10 @@
-const admin_token = ''
+const admin_token = 'a99f3a00e6c0d4ab6e38f941e02506023725d23b175afd0a'
 
 export const server_calls = {
     get_user_authorization: async (data: any = {}) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//users/authorization`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/users/authorization`,
         {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
@@ -20,7 +20,7 @@ export const server_calls = {
         return await response.json()
     },
     get_user_by_id: async (id: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//users/search/id/${id}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/users/search/id/${id}`,
         {
             method: 'GET',
             headers: {
@@ -37,7 +37,7 @@ export const server_calls = {
         return await response.json()
     },
     get_all_users: async () => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//users/all`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/users/all`,
         {
             method: 'GET',
             headers: {
@@ -54,7 +54,8 @@ export const server_calls = {
         return await response.json()
     },
     create_user: async (data: any = {}) => {
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/users/create`,{
+        console.log(JSON.stringify(data))
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/users/create`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ export const server_calls = {
         return await response.json()
     },
     update_user_by_id: async (id: string, data:any = {}) => {
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/users/update/id/${id}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/users/update/id/${id}`,
         {
             method: 'PUT',
             headers: {
@@ -89,7 +90,7 @@ export const server_calls = {
         return await response.json()
     },
     delete_user_by_id: async (id:string[]) => {
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/users${id}`,{
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/users${id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ export const server_calls = {
         return;
     },
     get_game_by_id: async (id: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/id/${id}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/id/${id}`,
         {
             method: 'GET',
             headers: {
@@ -122,7 +123,7 @@ export const server_calls = {
         return await response.json()
     },
     get_games_by_title: async (title: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/title/${title}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/title/${title}`,
         {
             method: 'GET',
             headers: {
@@ -139,7 +140,7 @@ export const server_calls = {
         return await response.json()
     },
     get_games_by_version: async (version: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/version/${version}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/version/${version}`,
         {
             method: 'GET',
             headers: {
@@ -156,7 +157,7 @@ export const server_calls = {
         return await response.json()
     },
     get_games_by_console: async (console: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/version/${console}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/version/${console}`,
         {
             method: 'GET',
             headers: {
@@ -173,7 +174,7 @@ export const server_calls = {
         return await response.json()
     },
     get_games_by_region: async (region: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/region/${region}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/region/${region}`,
         {
             method: 'GET',
             headers: {
@@ -190,7 +191,7 @@ export const server_calls = {
         return await response.json()
     },
     get_games_by_publisher: async (publisher: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/publisher/${publisher}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/publisher/${publisher}`,
         {
             method: 'GET',
             headers: {
@@ -207,7 +208,7 @@ export const server_calls = {
         return await response.json()
     },
     get_games_by_completed: async (completed: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/completed/${completed}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/completed/${completed}`,
         {
             method: 'GET',
             headers: {
@@ -224,7 +225,7 @@ export const server_calls = {
         return await response.json()
     },
     get_games_by_value: async (value: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/value/${value}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/value/${value}`,
         {
             method: 'GET',
             headers: {
@@ -240,8 +241,25 @@ export const server_calls = {
         }
         return await response.json()
     },
-    get_games_by_owner: async (owner: string, token: string) => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/owner/${owner}`,
+    get_games_by_owner: async (owner: string, token: string) => {
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/owner/${owner}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'x-access-token': `Bearer ${token}`
+            }
+
+        });
+        console.log(owner,token)
+        if (!response.ok){
+            throw new Error('Failed to fetch data from the server')
+        }
+        return await response.json()
+    },
+    get_games_by_token: async (token: string) => { 
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/owner/all`,
         {
             method: 'GET',
             headers: {
@@ -255,9 +273,10 @@ export const server_calls = {
         if (!response.ok){
             throw new Error('Failed to fetch data from the server')
         }
+        return await response.json()
     },  
     get_all_games: async () => { 
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/search/all`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/search/all`,
         {
             method: 'GET',
             headers: {
@@ -274,7 +293,7 @@ export const server_calls = {
         return await response.json()
     },
     create_game: async (data: any = {}, token: string) => {
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/create`,{
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/create`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -290,7 +309,7 @@ export const server_calls = {
         return await response.json()
     },
     update_game_by_id: async (id: string, data:any = {}, token: string) => {
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/update/id/${id}`,
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/update/id/${id}`,
         {
             method: 'PUT',
             headers: {
@@ -309,7 +328,7 @@ export const server_calls = {
         return await response.json()
     },
     delete_game_by_id: async (id:string[], token: string) => {
-        const response = await fetch(`http://localhost:5173/?name=Dakota#//api/games/delete/id/${id}`,{
+        const response = await fetch(`https://video-game-library-backend.onrender.com//api/games/delete/id/${id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

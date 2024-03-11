@@ -1,38 +1,11 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import SignIn from "../auth/SignIn";
 import { useAuthContext } from "../auth/AuthContext";
-import SignOut from "../auth/SignOut";
-import SignUp from "../auth/SignUp";
-
 
 function Navbar() {
     const [isVisible, setIsVisible] = useState(false)
-    const auth = useAuthContext();
-
-    const signUpOnClick = async() => {
-        if (!auth.isAuthorized) {
-            await SignUp
-            await location.reload();
-        }
-    }
-
-    const signInOnClick = async() => {
-        if (!auth.isAuthorized) {
-            await SignIn()
-            await location.reload();
-        }
-    }
-
-    const signOutOnClick = async () => {
-        if (auth.isAuthorized) {
-            await SignOut
-            await location.reload();
-        }
-        await auth;
-        await location.reload();
-    }
-
+    const authContext = useAuthContext();
+    const isAuthorized = authContext.isAuthorized
     const dropDown = () => {
         setIsVisible(!isVisible)
     }
@@ -51,6 +24,7 @@ function Navbar() {
                     <i className="fas fa-bars"></i>
                 </button>
             </div>
+            
             { isVisible ? (
             <div className=" w-full block flex-grow items-center">
                 <div className="flex text-sm lg:flex-grow">
@@ -59,36 +33,21 @@ function Navbar() {
                             <button>Home</button>
                         </Link>
                     </div>
-
-                    {!auth.isAuthorized ?
-                        <>
-                            <div className="flex p-3 justify-center">
-                                <Link to='/' onClick={signInOnClick} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
-                                    <button>Sign In</button>
-                                </Link>
-                            </div>
-                            <div className="flex p-3 justify-center">
-                            <Link to='/' onClick={signUpOnClick} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
-                                <button>Sign Up</button>
+                    <div className="flex p-3 justify-center">
+                        <Link to='/accountView' onClick={clicked} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
+                            <button>Account</button>
+                        </Link>
+                    </div>
+                    {isAuthorized && (<>
+                        <div className="flex p-3 justify-center">
+                            <Link to='/dashboard' onClick={clicked} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
+                                <button>Dashboard</button>
                             </Link>
-                            </div>
-                        </>
-                    :
-                        <>
-                            <div className="flex p-3 justify-center">
-                                <Link to='/dashboard' onClick={clicked} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
-                                    <button>Dashboard</button>
-                                </Link>
-                            </div>
-                            <div className="flex p-3 justify-center">
-                                <Link to='/home' onClick={() => {signOutOnClick()}} className=" p-4 flex place-items-center mt-4 lg:inline-block lg:mt-0 border rounded border-gray-200 text-gray-200 hover:text-white hover:border-white mr-4">
-                                    <button>Sign Out</button>
-                                </Link>
-                            </div>
-                        </>
-                    }
+                        </div>
+                    </>)}
                 </div>
-            </div>) : (<></>)}
+            </div>) : (<>
+            </>)}
         </nav>
     )
 }
